@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DING! MVP Launch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Vinyl&family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Rubik Vinyl', sans-serif;
+            background-color: #F5F5F5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            text-align: center;
+        }
+
+        h1 {
+            color: #C90224;
+            font-weight: bold;
+        }
+
+        p {
+            font-family: 'Poppins', sans-serif;
+            color: #303030;
+            font-size: 16px; /* Smaller text */
+            margin: 10px 20px;
+            line-height: 1.5;
+        }
+
+        .timer {
+            font-size: 48px;
+            color: #F39C12;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .notify-container {
+            margin-top: 20px;
+        }
+
+        .email-input {
+            padding: 10px;
+            font-size: 1rem;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .notify-button {
+            padding: 10px 20px;
+            background-color: #C90224;
+            color: white;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif; /* Poppins font for button */
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .notify-button:hover {
+            background-color: #A7011D;
+        }
+
+        .qr-code {
+            margin-bottom: 20px;
+        }
+
+        .button {
+            margin-top: 20px;
+        }
+
+        .button a {
+            display: inline-block;
+            padding: 15px 25px;
+            background-color: #C90224;
+            color: #FFFFFF;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif; /* Poppins font for link */
+            transition: background-color 0.3s;
+        }
+
+        .button a:hover {
+            background-color: #A7011D;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- QR Code Image -->
+    <img src="images/qrcode.png" alt="QR Code" class="qr-code"> <!-- Replace with actual QR code image URL -->
+
+    <h1>DING! is Almost Here!</h1>
+    <p>Your QR code solution for ordering food in restaurants is launching soon. Features include digital menus, seamless ordering, and real-time notifications.</p>
+
+    <div class="timer" id="timer">12 Days, 00:00:00</div>
+
+    <div class="notify-container">
+        <input type="email" class="email-input" id="email" placeholder="Enter your email">
+        <button class="notify-button" id="notifyButton">Notify Me on Launch</button>
+    </div>
+
+    <script>
+        // Countdown Timer Logic
+        function startCountdown(durationInDays) {
+            const timerElement = document.getElementById('timer');
+            const endDate = new Date().getTime() + durationInDays * 24 * 60 * 60 * 1000;
+
+            function updateTimer() {
+                const now = new Date().getTime();
+                const timeLeft = endDate - now;
+
+                const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                timerElement.textContent = `${days} Days, ${hours}:${minutes}:${seconds}`;
+
+                if (timeLeft < 0) {
+                    clearInterval(interval);
+                    timerElement.textContent = "We are live!";
+                }
+            }
+
+            const interval = setInterval(updateTimer, 1000);
+        }
+
+        startCountdown(12);
+
+        // Notify Me Button Click Handling
+        document.getElementById('notifyButton').addEventListener('click', function() {
+            let email = document.getElementById('email').value;
+            if (email) {
+                alert(`Thank you! We'll notify you at ${email}`);
+                // Here, you would typically send the email to your backend for processing
+                // Example: sendEmailToBackend(email);
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        });
+    </script>
+
+</body>
+</html>
